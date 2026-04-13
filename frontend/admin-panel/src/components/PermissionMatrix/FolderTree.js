@@ -1,10 +1,6 @@
 import React from 'react';
 import { Tree } from 'antd';
-import {
-  FolderOutlined,
-  FolderOpenOutlined,
-  FileOutlined,
-} from '@ant-design/icons';
+import { FolderOutlined, FolderOpenOutlined, FileOutlined } from '@ant-design/icons';
 
 const FolderTree = ({ folderStructure, expandedKeys, onExpand, selectedPaths, onSelectPath }) => {
   const convertToTreeData = (structure, parentPath = '') => {
@@ -31,10 +27,6 @@ const FolderTree = ({ folderStructure, expandedKeys, onExpand, selectedPaths, on
 
   const treeData = convertToTreeData(folderStructure);
 
-  const onCheck = (checkedKeys) => {
-    onSelectPath(checkedKeys);
-  };
-
   return (
     <Tree
       checkable
@@ -43,7 +35,7 @@ const FolderTree = ({ folderStructure, expandedKeys, onExpand, selectedPaths, on
       expandedKeys={expandedKeys}
       onExpand={onExpand}
       checkedKeys={selectedPaths}
-      onCheck={onCheck}
+      onCheck={(checkedKeys) => onSelectPath(checkedKeys)}
       className="folder-tree"
     />
   );

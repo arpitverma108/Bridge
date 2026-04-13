@@ -2,21 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .permission-select-green .ant-select-selector {
-    border-color: #10b981 !important;
-    background-color: #f0fdf4 !important;
-  }
-  
-  .permission-select-blue .ant-select-selector {
-    border-color: #3b82f6 !important;
-    background-color: #eff6ff !important;
-  }
-  
-  .permission-select-red .ant-select-selector {
-    border-color: #ef4444 !important;
-    background-color: #fef2f2 !important;
-  }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom scrollbar */

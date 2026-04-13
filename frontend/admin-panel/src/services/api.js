@@ -9,7 +9,7 @@ const api = axios.create({
   },
 });
 
-// Add auth token to requests
+// 🔐 Token (optional)
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('authToken');
   if (token) {
@@ -18,16 +18,25 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const savePermissions = async (permissions) => {
-  const response = await api.post('/permissions/batch', { permissions });
-  return response.data;
-};
-
+// ✅ GET permissions
 export const getPermissions = async () => {
   const response = await api.get('/permissions');
   return response.data;
 };
 
+// ✅ SAVE permissions
+export const savePermissions = async (permissions) => {
+  const response = await api.post('/permissions/batch', { permissions });
+  return response.data;
+};
+
+// ✅ NEW → GET groups
+export const getGroups = async () => {
+  const response = await api.get('/groups');
+  return response.data;
+};
+
+// (optional)
 export const createUser = async (userData) => {
   const response = await api.post('/users', userData);
   return response.data;
