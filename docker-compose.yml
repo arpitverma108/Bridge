@@ -1,0 +1,31 @@
+services:
+  svn-server:
+    image: garethflowers/svn-server
+    container_name: svn_engine
+    ports:
+      - "3690:3690"
+    volumes:
+      - ./svn-data:/var/opt/svn
+
+  backend:
+    image: node:18
+    container_name: svn_backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    # Replace npm start with this line:
+    command: sh -c "tail -f /dev/null"
+    depends_on:
+      - svn-server
+
+  db:
+    image: postgres:15
+    container_name: svn_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: svn_management
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data

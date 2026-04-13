@@ -1,0 +1,29 @@
+# 🔹 Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# 🔹 Environment variables
+.env
+.env.*
+!.env.example
+
+# 🔹 Build / Production
+build/
+dist/
+
+# 🔹 Testing
+coverage/
+
+# 🔹 Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🔹 OS files
+.DS_Store
+
+# 🔹 Misc
+.vscode/
+.idea/
