@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   svn-server:
     image: garethflowers/svn-server
@@ -15,10 +17,9 @@ services:
       - ./backend:/app
     ports:
       - "5000:5000"
-    # Replace npm start with this line:
-    command: sh -c "tail -f /dev/null"
+    command: node src/server.js
     depends_on:
-      - svn-server
+      - db
 
   db:
     image: postgres:15
@@ -27,5 +28,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: svn_management
+    ports:
+      - "5432:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data

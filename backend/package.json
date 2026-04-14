@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -11,5 +11,10 @@
     "express": "^4.22.1",
     "pg": "^8.20.0",
     "svn-spawn": "^0.1.6"
-  }
+  },
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }

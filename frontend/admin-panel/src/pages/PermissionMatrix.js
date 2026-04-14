@@ -16,29 +16,26 @@ import {
   SaveOutlined,
 } from '@ant-design/icons';
 
-import { getPermissions, savePermissions, getGroups } from '../services/api';
+import { getPermissions, savePermissions } from '../services/api';
 
 const { Title } = Typography;
 
 function PermissionMatrix() {
   const [loading, setLoading] = useState(false);
   const [permissions, setPermissions] = useState({});
-  const [groups, setGroups] = useState([]); // ✅ dynamic
+  const [groups, setGroups] = useState(["Admin", "Developer", "QA"]); // ✅ static for now
   const [selectedGroup, setSelectedGroup] = useState('all');
 
   useEffect(() => {
     loadData();
   }, []);
 
-  // ✅ LOAD DATA FROM API
+  // ✅ LOAD DATA
   const loadData = async () => {
     setLoading(true);
     try {
       const permData = await getPermissions();
-      const groupData = await getGroups();
-
       setPermissions(permData);
-      setGroups(groupData);
     } catch (err) {
       message.error("Failed to load data");
     } finally {
@@ -77,7 +74,22 @@ function PermissionMatrix() {
     }
   };
 
-  // ✅ TABLE
+  // ✅ DEFAULT PATHS (if empty DB)
+  const defaultPaths = ["/trunk", "/trunk/src"];
+
+  const dataSource =
+    Object.keys(permissions).length > 0
+      ? Object.entries(permissions).map(([path, groups]) => ({
+          key: path,
+          path,
+          ...groups,
+        }))
+      : defaultPaths.map(path => ({
+          key: path,
+          path,
+        }));
+
+  // ✅ TABLE COLUMNS
   const columns = [
     {
       title: 'Path',
@@ -92,27 +104,23 @@ function PermissionMatrix() {
       key: group,
       render: (_, record) => {
         const value = permissions[record.path]?.[group] || 'Deny';
+
         return (
-          <select
+          <Select
             value={value}
-            onChange={(e) =>
-              handlePermissionChange(record.path, group, e.target.value)
+            style={{ width: 100 }}
+            onChange={(val) =>
+              handlePermissionChange(record.path, group, val)
             }
           >
-            <option value="Read">Read</option>
-            <option value="Write">Write</option>
-            <option value="Deny">Deny</option>
-          </select>
+            <Select.Option value="Read">Read</Select.Option>
+            <Select.Option value="Write">Write</Select.Option>
+            <Select.Option value="Deny">Deny</Select.Option>
+          </Select>
         );
       },
     })),
   ];
-
-  const dataSource = Object.entries(permissions).map(([path, groups]) => ({
-    key: path,
-    path,
-    ...groups,
-  }));
 
   return (
     <div>
